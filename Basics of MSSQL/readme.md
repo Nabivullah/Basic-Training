@@ -1,0 +1,1 @@
+we learnt DDL and DML in SQL with different keys used 
