@@ -94,6 +94,10 @@ const next= {...prev, Age :21};
 console.log(next);
 
 
+//Rest operator '...'- collectiong props or args , collects remaining items into an array?object using rest, Useful to pass down remaining props, works fo0r function arguments
+// example:  
+// 
+
 
 
 

@@ -1,0 +1,161 @@
+create database employees
+
+create table employees(
+id int primary key, 
+name varchar(50),
+salary int,
+ph_no bigint,
+dob date
+);
+
+select * from employees order by salary desc
+
+UPDATE employees
+SET name = 'asha', salary = 90000
+where id=4
+
+insert into employees values (2,'vikram',30000,7282828222,'2003-04-20'),(3,'leela',50000,7282828222,'2003-04-20'),(4,'asha',90000,7282828222,'2003-04-20'),(5,'haruna',20000,7282828222,'2003-04-20')
+
+insert into employees values (6,'vansh',10000,7282828222,'2003-04-20')
+
+delete from employees where id=6;
+
+alter table employees add ph_no bigint;
+
+update employees set ph_no = 7282828222 where id%2=0 
+
+update employees set ph_no = 9849823455 where id%2!=0 
+
+alter table employees 
+alter column branch varchar(100);
+
+alter table employees 
+drop column manager,dob,ph_no;
+
+
+select max(salary) from employees where salary<(select max(salary) from employees);
+
+
+select * from employees where salary=(select max(salary) from employees where salary<(select max(salary) from employees));
+
+exec sp_help 'employees';
+
+
+exec sp_rename 'employees.salary', 'emp_sal' ;
+
+exec sp_rename 'datasheet','employees';
+
+select * from datasheet
+
+create table university(
+	id int primary key identity(1,1),
+	Names varchar(100),
+	dept varchar(100),
+	fees float
+);
+
+drop table university
+
+insert into university values ('shivam','MECHH',45000.99,'shiv123@gmail.com')
+
+select * from university
+
+
+delete from university where id=1
+
+alter table university 
+add constraint const_name unique (email) 
+
+exec sp_help 'university';
+
+
+create table student (s_id int primary key,names varchar (50), class varchar(10),foreign key(s_id) references university (id))
+
+insert into student values (3,'soumyadip','c')
+
+select * from student 
+
+drop table student
+
+
+
+
+
+
+
+
+
+
+create table employee(
+	id int primary key,
+	name varchar(50),
+	Dept varchar(50),
+	salary varchar(40)
+);
+
+insert into employee values (6,'rj','inf','9494567890',NULL)
+
+update employee set salary=500000 where id=1
+
+select * from employee
+
+alter table employee 
+add salary int
+
+alter table employee 
+drop column salary;
+
+select * from employee where salary between 200000 and 500000
+
+select * from employee where ph_no not like '%a%'
+
+select * from employee where salary is not null
+
+select * from employee
+
+select min(salary) from employee where dept=(select dept id where dept='IT')
+
+select max (salary)  from employee 
+
+select avg(salary) as avg_sal from employee 
+
+select count(*) from employee
+
+select * from employee where salary = (select max (salary)  from employee )      
+
+-- lecture on joins 
+
+create table users (
+	user_id int primary key,
+	email varchar(50),
+	name varchar(50)
+);
+
+create table books (
+	product_id int primary key,
+	title varchar(30),
+	price float 
+);
+
+
+create table orders (
+	order_no int primary key,
+	user_id int,
+	product_id int,
+	foreign key (user_id) references users(user_id), 
+	foreign key (product_id) references books(product_id)
+);
+
+insert into orders values (408,5,105)
+
+update books set price=2001.99 where product_id=105 
+
+select * from orders
+
+exec sp_rename 'users.name1', 'name' ,'column'
+
+--Full outer join
+
+select * from users u inner join orders o on u.user_id=o.user_id inner join books b on b.product_id=o.product_id where price=(select max(price) from books)
+
+
