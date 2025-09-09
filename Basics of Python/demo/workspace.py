@@ -3,6 +3,8 @@ import random
 import datetime
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns   # used for the visualization of box plot
 
 
 # # import methods-> import whole library or part of the library
@@ -10,7 +12,7 @@ import pandas as pd
 
 # #libraries for data analysis : matplotlib,pyplot,tensorflow,etc
 
-# # vectors: used for parallel computation , textual dat is converted to vectors which is called vectorization
+# # vectors: used for parallel computation , textual data is converted to vectors which is called vectorization
 # # if we need to process data in a parallel order instead of a serial order, we use vectore 
 
 # x=np.array([1,2,4])
@@ -54,34 +56,77 @@ import pandas as pd
 # Types of data analysis :descriptive analysis of data ,statistical analysis,diagnostics,predictive,
 # prescriptive,inferential,EDA-exploratory data analysis 
 
-df=pd.read_csv('datasets.csv')
-df_1 = df.drop('datasetName',axis=1)
-df=df.rename(columns={"datasetName":"HP","vintage":"cylinders"})
-print(df.head())
-print(df_1.tail())
+# df=pd.read_csv('datasets.csv')
+# df_1 = df.drop('datasetName',axis=1)
+# df=df.rename(columns={"datasetName":"HP","vintage":"cylinders"})
+# print(df.head())
+# print(df_1.tail())
 # print(df.dtypes)   # prints the data types in each columns 
 # print(df.describe()) 
 
-#->Shape- no of rows and columns
-# to check null values and other values in the dataset 
+# #->Shape- no of rows and columns
+# # to check null values and other values in the dataset 
 
-duplicate_rows_df= df[df.duplicated()]
-print(duplicate_rows_df)
+# duplicate_rows_df= df[df.duplicated()]
+# print(duplicate_rows_df)
 
-df=df.drop_duplicates()  # used  to drop the duplicates 
-df.head(5)
+# df=df.drop_duplicates()  # used  to drop the duplicates 
+# df.head(5)
 
-print(df.shape)  
+# print(df.shape)  
 
-#dropping missing or null values, other method is replacing null columns with median  
+# #dropping missing or null values, other method is replacing null columns with median  
 
 
-print(df.isnull().sum())  # this method is to check how many nulls are there in each column and here ther .sum is to add all the number of NULLS
+# print(df.isnull().sum())  # this method is to check how many nulls are there in each column and here ther .sum is to add all the number of NULLS
 
-#dropna method is to drop those elements that have null values present in them 
-df_2=df.dropna()
-print(df_2)
+# #dropna method is to drop those elements that have null values present in them 
+# df_2=df.dropna()
+# print(df_2)
 
-print(df_2.isnull().sum())
+# print(df_2.isnull().sum())
+
+#replacing the null values is data imputation - one part of diagnostics
+#In diagnostics we find the outliers- ie deviations from the general data flow 
+#predicitive is next and then finally it is Prescriptive
+
+
+# matplotlib basic visualization:
+
+# x=[0,2,4,6,8]
+# y=[0,4,16,36,64]
+
+# fig, ax=plt.subplots()
+# ax.plot(x,y,marker='o',label="Data Points")
+# ax.set_title("Basic Components of Matplotlib Figure")
+# ax.set_xlabel("X axis")
+# ax.set_ylabel("Y axis")
+# ax.legend()
+# plt.show()
+
+
+#combined example for bar grsph
+
+# arr=np.array([10,20,30,40,50,12,34,54,32,3,4,45,44,33,44,31,56,22,11,55,44,33])
+# df=pd.DataFrame({"Numbers":arr})
+# plt.bar(df.index,df["Numbers"])
+# plt.show()
+
+
+#outlier detection 
+df=pd.read_csv('Basics of Python\demo\car_sales_data.csv')
+# sns.boxplot(x=df['Mileage'])
+# plt.show()
+
+# print(df.describe())
+
+Q1=df.quantile(0.25,numeric_only=True)
+Q3=df.quantile(0.75,numeric_only=True)
+IQR=Q3-Q1
+print(IQR) #99 percent data is stored in this region as in the other region there are moslty outliers present. so finding IQR gives us data mostly free from outliers
+
+
+
+
 
 
