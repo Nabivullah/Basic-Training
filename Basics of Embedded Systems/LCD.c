@@ -34,9 +34,9 @@ int main(void) {
 
 void lcd_pulse() {
     PORTB |= (1<<EN);
-    _delay_us(1);
+    _delay_us(50);
     PORTB &= ~(1<<EN);
-    _delay_ms(2);
+    _delay_ms(100);
 }
 
 void lcd_cmd(unsigned char cmd) {
